@@ -1,6 +1,6 @@
 //import 'dart:html';
 
-import 'package:basic_app/bloc/blocs/internet_bloc.dart';
+//import 'package:basic_app/bloc/blocs/internet_bloc.dart';
 import 'package:basic_app/bloc/state/internet_state.dart';
 import 'package:basic_app/cubit/internet_cubit_state.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +18,17 @@ class MainScreen2 extends StatelessWidget {
         child: Center(
           child: BlocConsumer<InternetCubitState, InternetCubitStateEnum>(
             listener: (context, state) {
-              if (state is InternetGainState) {
+              if (state == InternetCubitStateEnum.gained) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Connected"), backgroundColor: Colors.green));
-              } else if (state is InteretLossState) {
+              } else if (state == InternetCubitStateEnum.lost) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Lost Connection"),
                     backgroundColor: Colors.red));
               }
             },
             builder: (context, state) {
+              print("thhis is State " + state.toString());
               if (state == InternetCubitStateEnum.gained) {
                 return const Text(
                   "Internet Connected",
