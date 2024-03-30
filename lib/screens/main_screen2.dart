@@ -17,6 +17,14 @@ class MainScreen2 extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: BlocConsumer<InternetCubitState, InternetCubitStateEnum>(
+            /*yahan par Bloc consumer ka use kiya hai jo states lega aur events ko emit karega 
+                ye code filhaal Cubit ke liye hai , jismein function aur events hai (shayad States hai 😅)
+                consumer mein hum listner ka use karte hai, jo ki background process ke liye use hota hai
+                hum bina Consumer ke bhi use kar skate hai BLoC provider ke saath(ye Main mein use hua hai ).
+
+
+               */
+
             listener: (context, state) {
               if (state == InternetCubitStateEnum.gained) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -28,7 +36,7 @@ class MainScreen2 extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              print("thhis is State " + state.toString());
+              debugPrint("This is State $state");
               if (state == InternetCubitStateEnum.gained) {
                 return const Text(
                   "Internet Connected",

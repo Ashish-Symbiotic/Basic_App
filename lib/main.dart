@@ -16,6 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      /* Hamne puri app ko hi BLoC provider se wrap kar diya jisse ki puri app par hi BLoC work kare */
+
       create: (context) => InternetCubitState(),
       child: MaterialApp(
         title: 'Flutter Demo',
