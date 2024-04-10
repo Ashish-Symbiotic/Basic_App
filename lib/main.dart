@@ -1,4 +1,4 @@
-import 'package:basic_app/bloc/blocs/internet_bloc.dart';
+//import 'package:basic_app/bloc/blocs/internet_bloc.dart';
 import 'package:basic_app/cubit/internet_cubit_state.dart';
 import 'package:basic_app/screens/main_screen2.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: Colors.blue,
+          useMaterial3: true,
         ),
-        home: MainScreen2(),
+        home: const MainScreen2(),
       ),
     );
   }
