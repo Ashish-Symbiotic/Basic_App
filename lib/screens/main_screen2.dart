@@ -3,6 +3,7 @@
 //import 'package:basic_app/bloc/blocs/internet_bloc.dart';
 //import 'package:basic_app/bloc/state/internet_state.dart';
 import 'package:basic_app/cubit/internet_cubit_state.dart';
+import 'package:basic_app/screens/phone_auth/enter_phone.dart';
 import 'package:basic_app/screens/signin_bloc/sigin_bloc.dart';
 import 'package:basic_app/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class MainScreen2 extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) => Signin_bloc(),
-              child: SigninScreen(),
+              child: enter_phone(),
             ),
           ],
         ),

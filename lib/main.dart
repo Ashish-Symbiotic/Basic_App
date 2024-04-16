@@ -1,11 +1,18 @@
 //import 'package:basic_app/bloc/blocs/internet_bloc.dart';
 import 'package:basic_app/cubit/internet_cubit_state.dart';
 import 'package:basic_app/screens/main_screen2.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
