@@ -4,7 +4,10 @@ class AuthCodeSentState extends AuthState {}
 
 class AuthCodeVerification extends AuthState {}
 
-class AuthLoggedInState extends AuthState {}
+class AuthLoggedInState extends AuthState {
+  String firebaseUser;
+  AuthLoggedInState(this.firebaseUser);
+}
 
 class AuthLoggedOutState extends AuthState {}
 
@@ -15,4 +18,4 @@ class AuthErrorState extends AuthState {
 
 class AuthInitState extends AuthState {}
 
-class LoadingState extends AuthState {}
+class AuthLoadingState extends AuthState {}

@@ -8,8 +8,11 @@ class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthCubit() : super(AuthInitState());
 
-  String? _verficationId;
+  String _verficationId = "";
+
   void sendOTP(String phoneNumber) async {
+    emit(AuthLoadingState());
+
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       codeSent: (verificationId, forceResendingToken) {
@@ -26,7 +29,22 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  void verifyOTP(String otp) async {}
+  void verifyOTP(String otp) async {
+    emit(AuthLoadingState());
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verficationId, smsCode: otp);
+    siginWithPhone(credential);
+  }
 
-  void siginWithPhone(PhoneAuthCredential phoneAuthCredential) async {}
+  void siginWithPhone(PhoneAuthCredential phoneAuthCredential) async {
+    try {
+      UserCredential userCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
+      if (userCredential.user != null) {
+        emit(AuthLoggedInState(userCredential.user.toString()));
+      }
+    } on FirebaseAuthException catch (e) {
+      emit(AuthErrorState(e.message.toString()));
+    }
+  }
 }
