@@ -1,10 +1,12 @@
 import 'package:basic_app/bloc/auth_bloc/auth_cubit.dart';
 import 'package:basic_app/bloc/auth_bloc/auth_state.dart';
+import 'package:basic_app/main.dart';
 import 'package:basic_app/screens/phone_auth/all_done.dart';
 import 'package:basic_app/screens/phone_auth/enter_phone.dart';
 import 'package:basic_app/screens/signin_screen.dart';
 import 'package:firebase_auth_platform_interface/src/providers/phone_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,7 +17,7 @@ class Enter_Otp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController phoneOtp = TextEditingController();
+    TextEditingController phoneOtpContoller = TextEditingController();
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -25,24 +27,19 @@ class Enter_Otp extends StatelessWidget {
               hintText: "Enter your OTP",
             ),
             showCursor: true,
-            controller: phoneOtp,
+            controller: phoneOtpContoller,
           ),
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              // TODO: implement listener
               if (state is AuthLoggedInState) {
-                Navigator.popUntil(
-                    context,
-                    (route) =>
-                        route !=
-                        MaterialPageRoute(builder: (context) => enter_phone()));
+                Navigator.popUntil(context, (route) => route.isFirst);
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => enter_phone()));
+                    MaterialPageRoute(builder: (context) => const MyApp()));
               } else if (state is AuthErrorState) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.red,
                   content: Text(state.error.toString()),
-                  duration: const Duration(milliseconds: 100),
+                  duration: const Duration(milliseconds: 2000),
                 ));
               }
             },
@@ -54,9 +51,12 @@ class Enter_Otp extends StatelessWidget {
               return ElevatedButton(
                   onPressed: () {
                     BlocProvider.of<AuthCubit>(context)
-                        .verifyOTP(phoneOtp.text.toString());
+                        .verifyOTP(phoneOtpContoller.text.toString());
+                    if (kDebugMode) {
+                      print("Otp is${phoneOtpContoller.text}");
+                    }
                   },
-                  child: const Text("Sign in"));
+                  child: const Text("Verfiy Otp"));
             },
           ),
         ],

@@ -2,6 +2,8 @@
 
 //import 'package:basic_app/bloc/blocs/internet_bloc.dart';
 //import 'package:basic_app/bloc/state/internet_state.dart';
+import 'package:basic_app/bloc/auth_bloc/auth_cubit.dart';
+import 'package:basic_app/bloc/auth_bloc/auth_state.dart';
 import 'package:basic_app/cubit/internet_cubit_state.dart';
 import 'package:basic_app/screens/phone_auth/enter_phone.dart';
 import 'package:basic_app/screens/signin_bloc/sigin_bloc.dart';
@@ -64,8 +66,8 @@ class MainScreen2 extends StatelessWidget {
               ),
             ),
             BlocProvider(
-              create: (context) => Signin_bloc(),
-              child: enter_phone(),
+              create: (context) => AuthCubit(),
+              child: const enter_phone(),
             ),
           ],
         ),

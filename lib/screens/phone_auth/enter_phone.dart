@@ -34,6 +34,8 @@ class enter_phone extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: ((context) => const Enter_Otp())));
+                } else {
+                  print("State is " + state.toString());
                 }
                 // TODO: implement listener
               },
